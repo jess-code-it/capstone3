@@ -18,7 +18,7 @@ export default function AddProduct() {
     let token = localStorage.getItem("token")
 
     try {
-      const response = await fetch("http://localhost:4001/b1/products", {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/products`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

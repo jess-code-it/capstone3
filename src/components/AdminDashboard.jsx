@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react"
 import { Button, Table } from "react-bootstrap"
-import { useNavigate } from "react-router-dom"
+import { useNavigate, Link } from "react-router-dom"
 import ArchiveProduct from "../components/ArchiveProduct"
 import UpdateProduct from "../components/UpdateProduct"
 
-const ALL_PRODUCTS_URL = "http://localhost:4001/b1/products/all"
+const ALL_PRODUCTS_URL = `${import.meta.env.VITE_API_URL}/products/all`
 
 export default function AdminDashboard() {
   const navigate = useNavigate()
@@ -39,7 +39,9 @@ export default function AdminDashboard() {
         <Button variant="primary" onClick={() => navigate("/addProduct")}>
           Create New Product
         </Button>
-        <Button variant="success">Show User Orders</Button>
+        <Link className="btn btn-success btn-block" to="/all-orders">
+          Show All Users Orders
+        </Link>
       </div>
       <Table striped bordered hover responsive variant="dark">
         <thead>

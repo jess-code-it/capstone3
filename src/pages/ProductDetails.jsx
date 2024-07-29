@@ -49,7 +49,7 @@ export default function ProductDetails() {
     const token = localStorage.getItem("token")
 
     try {
-      const response = await fetch("http://localhost:4001/b1/cart/add-to-cart", {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/cart/add-to-cart`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

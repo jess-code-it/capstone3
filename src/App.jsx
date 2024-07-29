@@ -1,11 +1,6 @@
 import { useEffect, useState } from "react"
 import { Container } from "react-bootstrap"
-import {
-  Navigate,
-  Route,
-  BrowserRouter as Router,
-  Routes,
-} from "react-router-dom"
+import {Navigate, Route, BrowserRouter as Router, Routes,} from "react-router-dom"
 import AdminDashboard from "./components/AdminDashboard"
 import AppNavbar from "./components/AppNavbar"
 import { UserProvider } from "./context/UserContext"
@@ -18,12 +13,13 @@ import Logout from "./pages/Logout"
 import ProductCatalog from "./pages/ProductCatalog"
 import ProductDetails from "./pages/ProductDetails"
 import Register from "./pages/Registration"
+import OrderPage from "./pages/OrderPage"
 
 function App() {
   const [user, setUser] = useState({ id: null, isAdmin: null })
 
   useEffect(() => {
-    fetch("http://localhost:4001/b1/users/details", {
+    fetch(`${import.meta.env.VITE_API_URL}/users/details`, {
       headers: {
         Authorization: `Bearer ${localStorage.getItem("token")}`,
       },
@@ -47,6 +43,8 @@ function App() {
             <Route path="*" element={<Error />} />
             <Route path="/" element={<Home />} />
             <Route path="/product" element={<ProductCatalog />} />
+            <Route path="/my-orders" element={<OrderPage />} />
+            <Route path="/all-orders" element={<OrderPage />} />
             <Route path="/cart" element={<Cart />} />
             <Route path="/addProduct" element={<AddProduct />} />
             <Route path="/products/:productId" element={<ProductDetails />} />

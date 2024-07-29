@@ -36,7 +36,7 @@ function Register() {
       password === verifyPassword &&
       mobileNo.length === 11
     ) {
-      fetch("http://localhost:4001/b1/users/register", {
+      fetch(`${import.meta.env.VITE_API_URL}/users/register`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

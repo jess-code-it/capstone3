@@ -3,7 +3,7 @@ import { useState } from "react"
 import { Button, Form, Modal } from "react-bootstrap"
 import Swal from "sweetalert2"
 
-const PRODUCTS_URL = "http://localhost:4001/b1/products"
+const PRODUCTS_URL = `${import.meta.env.VITE_API_URL}/products`
 
 export default function UpdateProduct({ product, onSuccess }) {
   const [name, setName] = useState("")

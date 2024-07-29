@@ -1,8 +1,7 @@
 import { Table, Button } from "react-bootstrap";
-import { Link } from "react-router-dom";
 import CartItem from "./CartItem";
 
-const CartTable = ({ carts, handleShowModal, handleShowDeleteModal, totalPrice }) => {
+const CartTable = ({ carts, handleShowModal, handleShowDeleteModal, totalPrice, handleCheckout }) => {
   const truncateDescription = (description, maxLength) => {
     if (!description) return "N/A";
     return description.length > maxLength ? `${description.substring(0, maxLength)}...` : description;
@@ -40,8 +39,11 @@ const CartTable = ({ carts, handleShowModal, handleShowDeleteModal, totalPrice }
           <td className="text-center">
             <h3>&#x20B1;{totalPrice}</h3>
           </td>
-          <td></td>
-          <td></td>
+          <td colSpan="2">
+            <Button className="col-12 text-center" variant="success" onClick={handleCheckout}>
+              Checkout
+            </Button>
+          </td>
         </tr>
       </tbody>
     </Table>

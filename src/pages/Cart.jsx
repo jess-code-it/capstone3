@@ -7,11 +7,13 @@ import CartTable from "../components/CartTable";
 import QuantityModal from "../components/QuantityModal";
 import ClearCartModal from "../components/ClearCartModal";
 import DeleteItemModal from "../components/DeleteItemModal";
+import CheckoutModal from "../components/CheckoutModal"; // Import the CheckoutModal
 
-const GET_CART_URL = "http://localhost:4001/b1/cart/get-cart";
-const UPDATE_CART_URL = "http://localhost:4001/b1/cart/update-cart-quantity";
-const DELETE_CART_URL = "http://localhost:4001/b1/cart";
-const CLEAR_CART_URL = "http://localhost:4001/b1/cart/clear-cart";
+const GET_CART_URL = `${import.meta.env.VITE_API_URL}/cart/get-cart`;
+const UPDATE_CART_URL = `${import.meta.env.VITE_API_URL}/cart/update-cart-quantity`;
+const DELETE_CART_URL = `${import.meta.env.VITE_API_URL}/cart`;
+const CLEAR_CART_URL = `${import.meta.env.VITE_API_URL}/cart/clear-cart`;
+const CHECKOUT_URL = `${import.meta.env.VITE_API_URL}/orders/checkout`; // Define the checkout URL
 
 export default function CartPage() {
   const navigate = useNavigate();
@@ -20,6 +22,7 @@ export default function CartPage() {
   const [showModal, setShowModal] = useState(false);
   const [showClearModal, setShowClearModal] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [showCheckoutModal, setShowCheckoutModal] = useState(false); // State for the checkout modal
   const [selectedCartItem, setSelectedCartItem] = useState(null);
   const [quantity, setQuantity] = useState(1);
   const [itemIdToDelete, setItemIdToDelete] = useState(null);
@@ -155,6 +158,44 @@ export default function CartPage() {
     }
   };
 
+  const handleCheckout = async () => {
+    try {
+      const response = await fetch(CHECKOUT_URL, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+        body: JSON.stringify({
+          userId: user.id
+        })
+      });
+
+      if (response.status === 201) {
+        Swal.fire({
+          title: "Checkout Successful",
+          icon: "success",
+          text: "Your order has been placed successfully.",
+          confirmButtonText: "OK",
+          timer: 2000,
+        });
+        handleFetchCart();
+        setShowCheckoutModal(false);
+      } else {
+        console.error("Failed to checkout, status:", response.status);
+        Swal.fire({
+          title: "No Items in Cart",
+          icon: "warning",
+          text: "There are no items to checkout.",
+          confirmButtonText: "OK",
+          timer: 2000,
+        });
+      }
+    } catch (error) {
+      console.error("Error during checkout:", error);
+    }
+  };
+
   const handleShowModal = (cartItem) => {
     setSelectedCartItem(cartItem);
     setQuantity(cartItem.quantity);
@@ -164,6 +205,10 @@ export default function CartPage() {
   const handleShowDeleteModal = (itemId) => {
     setItemIdToDelete(itemId);
     setShowDeleteModal(true);
+  };
+
+  const handleShowCheckoutModal = () => {
+    setShowCheckoutModal(true);
   };
 
   useEffect(() => {
@@ -200,6 +245,7 @@ export default function CartPage() {
         handleShowModal={handleShowModal}
         handleShowDeleteModal={handleShowDeleteModal}
         totalPrice={totalPrice}
+        handleCheckout={handleShowCheckoutModal} // Pass handleShowCheckoutModal function
       />
       <QuantityModal
         showModal={showModal}
@@ -217,6 +263,11 @@ export default function CartPage() {
         showDeleteModal={showDeleteModal}
         setShowDeleteModal={setShowDeleteModal}
         handleDeleteItem={handleDeleteItem}
+      />
+      <CheckoutModal
+        showCheckoutModal={showCheckoutModal}
+        setShowCheckoutModal={setShowCheckoutModal}
+        handleCheckout={handleCheckout}
       />
     </div>
   );
