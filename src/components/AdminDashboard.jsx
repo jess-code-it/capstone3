@@ -5,7 +5,6 @@ import ArchiveProduct from "../components/ArchiveProduct"
 import UpdateProduct from "../components/UpdateProduct"
 
 const ALL_PRODUCTS_URL = `${import.meta.env.VITE_API_URL}/products/all`
-
 export default function AdminDashboard() {
   const navigate = useNavigate()
   const [products, setProducts] = useState([])
@@ -27,7 +26,6 @@ export default function AdminDashboard() {
       console.error(error)
     }
   }
-
   useEffect(() => {
     handleFetchData()
   }, [])
