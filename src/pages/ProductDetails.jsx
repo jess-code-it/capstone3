@@ -14,7 +14,7 @@ export default function ProductDetails() {
   const [quantity, setQuantity] = useState(1)
 
   useEffect(() => {
-    fetch(`http://localhost:4001/b1/products/${productId}`)
+    fetch(`${import.meta.env.VITE_API_URL}/products/${productId}`)
       .then((res) => res.json())
       .then((data) => {
         if (data.product) {

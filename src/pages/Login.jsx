@@ -60,7 +60,7 @@ export default function Login() {
   }
 
   function retrieveUserDetails(token) {
-    fetch("http://localhost:4001/b1/users/details", {
+    fetch(`${import.meta.env.VITE_API_URL}/users/details`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
