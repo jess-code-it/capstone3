@@ -9,5 +9,8 @@ export default function Logout() {
     setUser(null)
   }, [setUser])
 
+  useEffect(() => {
+    localStorage.removeItem("token")
+  }, [])
   return <Navigate to="/login" />
 }

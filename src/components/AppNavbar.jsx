@@ -30,26 +30,34 @@ export default function AppNavbar() {
             <Nav.Link as={NavLink} to="/product" exact="true">
               Products
             </Nav.Link>
-            {user && user.id !== null && user.id !== undefined ? 
-              user.isAdmin 
-                ?
+            {user && user.id !== null && user.id !== undefined ? (
+              user.isAdmin ? (
                 <>
-                    <Nav.Link as={Link} to="/admin">Admin Dashboard</Nav.Link>
-                    <Nav.Link as={NavLink} to="/logout" exact="true">Logout</Nav.Link>
+                  <Nav.Link as={Link} to="/admin">
+                    Admin Dashboard
+                  </Nav.Link>
+                  <Nav.Link as={NavLink} to="/logout" exact="true">
+                    Logout
+                  </Nav.Link>
                 </>
-                :
+              ) : (
                 <>
                     <Nav.Link as={NavLink} to="/cart" exact="true">Cart</Nav.Link>
                     <Nav.Link as={NavLink} to="/my-orders" exact="true">Orders</Nav.Link>
                     <Nav.Link as={NavLink} to="/profile" exact="true">Profile</Nav.Link>
                     <Nav.Link as={NavLink} to="/logout" exact="true">Logout</Nav.Link>
                 </>
-            :
-                <>
-                <Nav.Link as={NavLink} to="/login" exact="true">Login</Nav.Link>
-                <Nav.Link as={NavLink} to="/register" exact="true">Register</Nav.Link>
-                </>
-            }
+              )
+            ) : (
+              <>
+                <Nav.Link as={NavLink} to="/login" exact="true">
+                  Login
+                </Nav.Link>
+                <Nav.Link as={NavLink} to="/register" exact="true">
+                  Register
+                </Nav.Link>
+              </>
+            )}
           </Nav>
         </Navbar.Collapse>
       </Container>

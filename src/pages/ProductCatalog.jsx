@@ -1,12 +1,12 @@
 // pages/ProductCatalog.jsx
-import { useContext, useEffect, useState } from "react";
-import { Col, Container, Row, Stack } from "react-bootstrap";
-import ProductCard from "../components/ProductCard";
-import UserContext from "../context/UserContext";
+import { useContext, useEffect, useState } from "react"
+import { Col, Container, Row, Stack } from "react-bootstrap"
+import ProductCard from "../components/ProductCard"
+import UserContext from "../context/UserContext"
 
 export default function Products() {
-  const { user } = useContext(UserContext);
-  const [products, setProducts] = useState([]);
+  const { user } = useContext(UserContext)
+  const [products, setProducts] = useState([])
 
   const fetchData = async () => {
     try {
@@ -19,28 +19,28 @@ export default function Products() {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
-      });
+      })
 
       if (!response.ok) {
-        throw new Error("Failed to fetch products");
+        throw new Error("Failed to fetch products")
       }
 
-      const data = await response.json();
+      const data = await response.json()
       if (data.message === "No products found") {
-        setProducts([]);
+        setProducts([])
       } else {
-        setProducts(data.products);
+        setProducts(data.products)
       }
     } catch (error) {
-      console.error(error);
+      console.error(error)
     } finally {
-      console.log("fetchData finished");
+      console.log("fetchData finished")
     }
-  };
+  }
 
   useEffect(() => {
-    fetchData();
-  }, [user]);
+    fetchData()
+  }, [user])
 
   return (
     <div>
@@ -64,5 +64,5 @@ export default function Products() {
         </Container>
       </Stack>
     </div>
-  );
+  )
 }

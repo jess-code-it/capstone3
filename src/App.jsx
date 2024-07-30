@@ -12,6 +12,7 @@ import Login from "./pages/Login"
 import Logout from "./pages/Logout"
 import ProductCatalog from "./pages/ProductCatalog"
 import ProductDetails from "./pages/ProductDetails"
+import Profile from "./pages/Profile"
 import Register from "./pages/Registration"
 import OrderPage from "./pages/OrderPage"
 
@@ -26,14 +27,13 @@ function App() {
     })
       .then((res) => res.json())
       .then((data) => {
-        if (data) {
-          setUser({ id: data._id, isAdmin: data.isAdmin })
+        if (data && data.user) {
+          setUser({ id: data.user._id, isAdmin: data.user.isAdmin })
         } else {
           setUser({ id: null, isAdmin: null })
         }
       })
   }, [])
-
   return (
     <UserProvider value={{ user, setUser }}>
       <Router>
@@ -42,6 +42,7 @@ function App() {
           <Routes>
             <Route path="*" element={<Error />} />
             <Route path="/" element={<Home />} />
+            <Route path="/profile" element={<Profile />} />
             <Route path="/product" element={<ProductCatalog />} />
             <Route path="/my-orders" element={<OrderPage />} />
             <Route path="/all-orders" element={<OrderPage />} />

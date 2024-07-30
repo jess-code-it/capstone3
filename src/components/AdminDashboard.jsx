@@ -73,17 +73,14 @@ export default function AdminDashboard() {
                 {product.isActive ? "Available" : "Unavailable"}
               </td>
               <td>
-                <div className="d-flex justify-content-between">
-                  <UpdateProduct
-                    product={product}
-                    onSuccess={handleFetchData}
-                  />
-                  <ArchiveProduct
-                    id={product._id}
-                    isActive={product.isActive}
-                    onSuccess={handleFetchData}
-                  />
-                </div>
+                <UpdateProduct product={product} onSuccess={handleFetchData} />
+              </td>
+              <td>
+                <ArchiveProduct
+                  id={product._id}
+                  isActive={product.isActive}
+                  onSuccess={handleFetchData}
+                />
               </td>
             </tr>
           ))}

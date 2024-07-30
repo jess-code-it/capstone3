@@ -40,6 +40,11 @@
 - Deactivate Product
 - Reactivate Product
 
+##### Stretch Goals
+
+- Product Images
+- View User Details
+
 #### Features by Student-2
 
 ##### Cart View:
