@@ -7,13 +7,13 @@ import CartTable from "../components/CartTable";
 import QuantityModal from "../components/QuantityModal";
 import ClearCartModal from "../components/ClearCartModal";
 import DeleteItemModal from "../components/DeleteItemModal";
-import CheckoutModal from "../components/CheckoutModal"; // Import the CheckoutModal
+import CheckoutModal from "../components/CheckoutModal"; 
 
 const GET_CART_URL = `${import.meta.env.VITE_API_URL}/cart/get-cart`;
 const UPDATE_CART_URL = `${import.meta.env.VITE_API_URL}/cart/update-cart-quantity`;
 const DELETE_CART_URL = `${import.meta.env.VITE_API_URL}/cart`;
 const CLEAR_CART_URL = `${import.meta.env.VITE_API_URL}/cart/clear-cart`;
-const CHECKOUT_URL = `${import.meta.env.VITE_API_URL}/orders/checkout`; // Define the checkout URL
+const CHECKOUT_URL = `${import.meta.env.VITE_API_URL}/orders/checkout`; 
 
 export default function CartPage() {
   const navigate = useNavigate();
@@ -22,7 +22,7 @@ export default function CartPage() {
   const [showModal, setShowModal] = useState(false);
   const [showClearModal, setShowClearModal] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
-  const [showCheckoutModal, setShowCheckoutModal] = useState(false); // State for the checkout modal
+  const [showCheckoutModal, setShowCheckoutModal] = useState(false);
   const [selectedCartItem, setSelectedCartItem] = useState(null);
   const [quantity, setQuantity] = useState(1);
   const [itemIdToDelete, setItemIdToDelete] = useState(null);
