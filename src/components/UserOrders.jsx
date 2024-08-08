@@ -1,15 +1,17 @@
 import React, { useEffect, useState } from 'react';
-import { Table } from 'react-bootstrap';
-import { useNavigate } from 'react-router-dom';
+import { Table, Button } from 'react-bootstrap';
+import { useNavigate, Link } from 'react-router-dom';
 
 const USER_ORDERS_URL = `${import.meta.env.VITE_API_URL}/orders/my-orders`;
 
 const UserOrders = () => {
   const [orders, setOrders] = useState([]);
+  const navigate = useNavigate(); // Added navigate here
 
   const handleFetchData = async () => {
     try {
       const token = localStorage.getItem("token");
+      console.log("Token:", token); // Log token
       if (!token) {
         console.error("No token found in localStorage");
         return;
@@ -19,10 +21,10 @@ const UserOrders = () => {
           Authorization: `Bearer ${token}`,
         },
       });
-      console.log(`Response status: ${response.status}`);
+      console.log(`Response status: ${response.status}`); // Log response status
       if (response.ok) {
         const data = await response.json();
-        console.log("Fetched data:", data);
+        console.log("Fetched data:", data); // Log fetched data
         setOrders(data.orders || []);
       } else {
         console.error("Failed to fetch orders:", response.status, response.statusText);
@@ -37,35 +39,43 @@ const UserOrders = () => {
   }, []);
 
   return (
-    <div>
-        <div className="d-flex justify-content-center gap-1 mb-4">
-            <Button variant="primary" onClick={() => navigate("/addProduct")}>
-            Create New Product
-            </Button>
-            <Link className="btn btn-success btn-block" to="/all-orders">
-            Show All Users Orders
-            </Link>
-        </div>
+    <>
+      <div>
         <h1 className="text-center my-4">My Orders</h1>
+        <div className="d-flex justify-content-center gap-1 mb-4">
+          <Button variant="primary" onClick={() => navigate("/product")}>
+            Order New Product
+          </Button>
+          <Button variant="success" onClick={() => navigate("/cart")}>
+            View my Cart
+          </Button>
+        </div>
         <Table striped bordered hover responsive variant="white">
-            <thead>
+          <thead>
             <tr className="text-center">
-                <th>Order ID</th>
-                <th>Total Price</th>
-                <th>Ordered On</th>
+              <th>Order ID</th>
+              <th>Total Price</th>
+              <th>Ordered On</th>
             </tr>
-            </thead>
-            <tbody>
-            {orders.map(order => (
+          </thead>
+          <tbody>
+            {orders.length > 0 ? (
+              orders.map(order => (
                 <tr key={order._id}>
-                <td>{order._id}</td>
-                <td>{order.totalPrice}</td>
-                <td>{new Date(order.orderedOn).toLocaleDateString()}</td>
+                  <td>{order._id}</td>
+                  <td>{order.totalPrice}</td>
+                  <td>{new Date(order.orderedOn).toLocaleDateString()}</td>
                 </tr>
-            ))}
-            </tbody>
+              ))
+            ) : (
+              <tr>
+                <td colSpan="3" className="text-center">No orders found</td>
+              </tr>
+            )}
+          </tbody>
         </Table>
-    </div>
+      </div>
+    </>
   );
 };
 

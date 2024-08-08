@@ -245,7 +245,7 @@ export default function CartPage() {
         handleShowModal={handleShowModal}
         handleShowDeleteModal={handleShowDeleteModal}
         totalPrice={totalPrice}
-        handleCheckout={handleShowCheckoutModal} // Pass handleShowCheckoutModal function
+        handleCheckout={handleShowCheckoutModal}
       />
       <QuantityModal
         showModal={showModal}
