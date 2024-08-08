@@ -6,12 +6,11 @@ const USER_ORDERS_URL = `${import.meta.env.VITE_API_URL}/orders/my-orders`;
 
 const UserOrders = () => {
   const [orders, setOrders] = useState([]);
-  const navigate = useNavigate(); // Added navigate here
+  const navigate = useNavigate();
 
   const handleFetchData = async () => {
     try {
       const token = localStorage.getItem("token");
-      console.log("Token:", token); // Log token
       if (!token) {
         console.error("No token found in localStorage");
         return;
@@ -21,10 +20,9 @@ const UserOrders = () => {
           Authorization: `Bearer ${token}`,
         },
       });
-      console.log(`Response status: ${response.status}`); // Log response status
+      console.log(`Response status: ${response.status}`);
       if (response.ok) {
         const data = await response.json();
-        console.log("Fetched data:", data); // Log fetched data
         setOrders(data.orders || []);
       } else {
         console.error("Failed to fetch orders:", response.status, response.statusText);
@@ -37,7 +35,6 @@ const UserOrders = () => {
   useEffect(() => {
     handleFetchData();
   }, []);
-
   return (
     <>
       <div>
