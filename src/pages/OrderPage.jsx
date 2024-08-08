@@ -5,7 +5,6 @@ import UserContext from "../context/UserContext";
 
 const OrdersPage = () => {
   const { user } = useContext(UserContext);
-  console.log(user);
   if (!user) {
     console.log("User not found, loading...");
     return <div>Loading...</div>;

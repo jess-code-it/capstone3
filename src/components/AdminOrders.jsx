@@ -22,7 +22,8 @@ const AdminOrders = () => {
       if (response.ok) {
         const data = await response.json();
         console.log("Fetched data:", data);
-          setOrders(data.orders.productOrdered || []);
+
+        setOrders(data.orders || []);
       } else {
         console.error("Failed to fetch orders:", response.status, response.statusText);
       }
@@ -42,20 +43,24 @@ const AdminOrders = () => {
         <thead>
           <tr className="text-center">
             <th>Order ID</th>
-            <th>User ID</th>
             <th>Total Price</th>
             <th>Ordered On</th>
           </tr>
         </thead>
         <tbody>
-          {orders.map(order => (
-            <tr key={order.productsOrdered._id}>
-              <td>{order._id}</td>
-              <td>{order.userId}</td>
-              <td>{order.totalPrice}</td>
-              <td>{new Date(order.orderedOn).toLocaleDateString()}</td>
+          {orders.length > 0 ? (
+            orders.map(order => (
+              <tr key={order._id}>
+                <td>{order._id}</td>
+                <td>{order.totalPrice}</td>
+                <td>{new Date(order.orderedOn).toLocaleDateString()}</td>
+              </tr>
+            ))
+          ) : (
+            <tr>
+              <td colSpan="4" className="text-center">No orders found</td>
             </tr>
-          ))}
+          )}
         </tbody>
       </Table>
     </div>
